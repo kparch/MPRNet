@@ -1,4 +1,12 @@
 .ipynb_checkpoints/
 *.pyc
 .DS_Store
-
+/Deblurring/Datasets/GoPro/
+/Deblurring/Datasets/HIDE/
+/Deblurring/Datasets/RealBlur_J/
+/Deblurring/Datasets/RealBlur_R/
+/Deblurring/pretrained_models/*.pth
+/Deblurring/results/*
+/pytorch-gradual-warmup-lr/build
+/pytorch-gradual-warmup-lr/dist
+/pytorch-gradual-warmup-lr/*.egg-info
