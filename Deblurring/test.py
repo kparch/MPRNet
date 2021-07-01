@@ -37,24 +37,28 @@ model_restoration = MPRNet()
 
 utils.load_checkpoint(model_restoration,args.weights)
 print("===>Testing using weights: ",args.weights)
-model_restoration.cuda()
-model_restoration = nn.DataParallel(model_restoration)
+#model_restoration.cuda()
+#model_restoration = nn.DataParallel(model_restoration)
 model_restoration.eval()
+
 
 dataset = args.dataset
 rgb_dir_test = os.path.join(args.input_dir, dataset, 'test', 'input')
 test_dataset = get_test_data(rgb_dir_test, img_options={})
-test_loader  = DataLoader(dataset=test_dataset, batch_size=1, shuffle=False, num_workers=4, drop_last=False, pin_memory=True)
+#test_loader  = DataLoader(dataset=test_dataset, batch_size=1, shuffle=False, num_workers=4, drop_last=False, pin_memory=True)
+test_loader  = DataLoader(dataset=test_dataset, batch_size=1, shuffle=False, num_workers=0, drop_last=False, pin_memory=True)
 
 result_dir  = os.path.join(args.result_dir, dataset)
 utils.mkdir(result_dir)
 
+
 with torch.no_grad():
     for ii, data_test in enumerate(tqdm(test_loader), 0):
-        torch.cuda.ipc_collect()
-        torch.cuda.empty_cache()
+        #torch.cuda.ipc_collect()
+        #torch.cuda.empty_cache()
 
-        input_    = data_test[0].cuda()
+        #input_    = data_test[0].cuda()
+        input_    = data_test[0]
         filenames = data_test[1]
 
         # Padding in case images are not multiples of 8

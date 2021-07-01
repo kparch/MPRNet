@@ -20,7 +20,8 @@ def save_checkpoint(model_dir, state, session):
     torch.save(state, model_out_path)
 
 def load_checkpoint(model, weights):
-    checkpoint = torch.load(weights)
+    #checkpoint = torch.load(weights)
+    checkpoint = torch.load(weights, map_location=torch.device('cpu'))
     try:
         model.load_state_dict(checkpoint["state_dict"])
     except:
@@ -33,7 +34,8 @@ def load_checkpoint(model, weights):
 
 
 def load_checkpoint_multigpu(model, weights):
-    checkpoint = torch.load(weights)
+    #checkpoint = torch.load(weights)
+    checkpoint = torch.load(weights, map_location=torch.device('cpu'))
     state_dict = checkpoint["state_dict"]
     new_state_dict = OrderedDict()
     for k, v in state_dict.items():
@@ -42,12 +44,14 @@ def load_checkpoint_multigpu(model, weights):
     model.load_state_dict(new_state_dict)
 
 def load_start_epoch(weights):
-    checkpoint = torch.load(weights)
+    #checkpoint = torch.load(weights)
+    checkpoint = torch.load(weights, map_location=torch.device('cpu'))
     epoch = checkpoint["epoch"]
     return epoch
 
 def load_optim(optimizer, weights):
-    checkpoint = torch.load(weights)
+    #checkpoint = torch.load(weights)
+    checkpoint = torch.load(weights, map_location=torch.device('cpu'))
     optimizer.load_state_dict(checkpoint['optimizer'])
     # for p in optimizer.param_groups: lr = p['lr']
     # return lr
